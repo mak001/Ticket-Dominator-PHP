@@ -1,0 +1,824 @@
+/* https://coolors.co/app/fcecc9-fcb0b3-aaffe9-7eb2dd-5773f2 */
+
+/* https://coolors.co/app/db5461-686963-8aa29e-3d5467-f1edee */
+
+@import url(https://fonts.googleapis.com/css?family=Josefin+Sans:700,400);
+@import url(https://fonts.googleapis.com/css?family=Bitter:700);
+
+/* Basic jQuery Slider essential styles */
+ul.bjqs{position:relative; list-style:none;padding:0;margin:0;overflow:hidden; display:none;}
+li.bjqs-slide{position:absolute; display:none;}
+li.bjqs-slide img {object-fit: contain;}
+ul.bjqs-controls{list-style:none;margin:0;padding:0;z-index:9999;}
+ul.bjqs-controls.v-centered li a{position:absolute;}
+ul.bjqs-controls.v-centered li.bjqs-next a{right:0; bottom: 0; top: auto !important;}
+ul.bjqs-controls.v-centered li.bjqs-prev a{left:0; bottom: 0; top: auto !important;}
+ol.bjqs-markers{list-style: none; padding: 0; margin: 0; width:100%;}
+ol.bjqs-markers.h-centered{text-align: center;}
+ol.bjqs-markers li{display:inline;}
+ol.bjqs-markers li a{display:inline-block;}
+p.bjqs-caption{display:block;width:96%;margin:0;padding:10px;position:absolute;bottom:0;}
+
+/* taken from the slider demo, slightly modified */
+ul.bjqs-controls.v-centered li a{
+	display:block;
+	padding:10px;
+	background:#000000;
+	border: 1px solid #FFFFFF;
+	color:#FFFFFF;
+	text-decoration: none;
+	font-family: 'Josefin Sans', sans-serif;
+}
+
+ul.bjqs-controls.v-centered li a:hover{
+	background:#999;
+}
+
+ol.bjqs-markers li a{
+	padding:5px 10px;
+	background:#000;
+	color:#fff;
+	margin:5px;
+	text-decoration: none;
+	font-family: 'Josefin Sans', sans-serif;
+}
+
+ol.bjqs-markers li.active-marker a,
+ol.bjqs-markers li a:hover{
+	background: #999;
+}
+
+p.bjqs-caption{
+	box-sizing: border-box;
+	width: 100%;
+	font-weight: bold;
+	text-align: center;
+	background: rgba(255,255,255,0.75);
+	border-top: 1px solid #FFFFFF;
+	font-family: 'Josefin Sans', sans-serif;
+}
+
+/* Actual css code */
+
+/* seperate styles allow the body to expand vertically */
+
+html {
+	height: 100%;
+}
+
+body {
+	min-height: 100%;
+	/* default fonts */
+	font-family: Arial, Helvetica, sans-serif;
+	
+	background-image: url(images/background.jpg);
+	background-size: cover;
+	background-repeat: no-repeat;
+	 background-attachment: fixed;
+	
+	/* gracefully fails without flex */
+	display: flex;
+	flex-direction: column;
+}
+
+html, body {
+	width: 100%;
+}
+
+html, body, body > * {
+	padding: 0;
+	margin: 0;
+}
+
+header {
+	min-height: 126px;
+	text-align: center;
+    background-color: #FFC492;
+	/* linear gradient is used as an overlay */
+	background: linear-gradient(rgba(255, 255, 255, 0.75), rgba(255, 255, 255, 0.75)), 
+		url(images/tickets.jpg);
+	background-size: cover;
+	background-position: center;
+	color: black;
+    position: relative;
+}
+
+header a {
+	display: block;
+	text-decoration: none;
+	color: black;
+}
+
+header hgroup {
+	padding: 20px;
+	font-family: 'Bitter', serif;
+}
+
+header hgroup * {
+	margin: 0;
+}
+
+/* TODO */
+header hgroup h2 {
+	margin-bottom: 10px;
+}
+
+#header-sidebar {
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	padding: 10px;
+	text-align: center;
+	z-index: 9999;
+}
+
+#header-sidebar form {
+	margin: 15px 0 0 0;
+}
+
+#live-search {
+	position: absolute;
+	left: 0;
+	right: 0;
+	margin: 0 10px;
+}
+
+.no-tickets {
+	background-color: white;
+	border: 1px solid black;
+	font-weight: bold;
+	padding: 20px 0;
+}
+
+.search-ticket {
+	background-color: white;
+	border: 1px solid black;
+	border-top: none;
+	background-position: 50%;
+}
+
+.search-ticket:first-child {
+	border-top: 1px solid black;
+}
+
+.search-ticket-info {
+	background-color: rgba(255, 255, 255, 0.90);
+	text-align: left;
+	padding: 2px;
+}
+
+.search-ticket-info .band, .search-ticket-info .location {
+	font-weight: bold;
+}
+
+#user-logout {
+	margin-top: 5px;
+}
+
+#user-logout .user-name {
+	font-weight: bold;
+}
+
+#logout {
+	margin-top: 2px;
+}
+
+/* to make the search and logout go under the header (otherwise it overlaps) */
+@media screen and (max-width: 800px) {
+	#header-sidebar {
+		position: relative;
+	}
+	
+	#header-sidebar form {
+		margin: 0px;
+	}
+}
+
+.sticky-wrapper {
+	z-index: 999;
+}
+
+nav {
+	background-color: black;
+	font-size: 1.5em;
+	font-weight: bold;
+	color: white;
+	z-index: 9999;
+}
+
+nav ul {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	
+	/* gracefully fails without flex */
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+}
+
+nav ul li {
+	padding: 0;
+	display: inline-block;
+}
+
+nav ul li {
+	border-left: 1px solid white;
+}
+
+nav ul li:last-child {
+	border-right: 1px solid white;
+}
+
+nav ul li a {
+	display: block;
+	text-decoration: none;
+	font-weight: bold;
+	color: white;
+	padding: 10px 20px;
+	transition: background-color 500ms, color 500ms;
+}
+
+nav ul li a:hover {
+	color: black;
+	background-color: white;
+}
+
+#nav-header {
+	display: none;
+	position:fixed;
+    top:0;
+    left:0;
+    right:0;
+	
+	box-sizing: border-box;
+	border-bottom: 1px solid white;
+	background-color: black;
+	color: white;
+	z-index: 99999;
+	padding: 10px 20px;
+	text-align: center;
+}
+
+/* from manny's (CSS - LP 12) */
+.hamburger {
+	font-size: 32px;
+}
+
+.cross {
+	font-size: 64px;
+	margin-right: 3px;
+}
+
+.hamburger, .cross {
+	z-index: 999;
+	cursor: pointer;
+	background: none;
+	border: none;
+	outline: none;
+	color: #f6f1ed;
+	font-weight: bold;
+	
+	position: absolute;
+	top: 0;
+	right: 0;
+}
+
+#mobile-nav {
+	display: none;
+	position: fixed;
+	z-index: 99999;
+	background-color: black;
+	width: 100%;
+}
+
+.sticky-wrapper nav .sticky-wrapper {
+	display: none;
+}
+
+main {
+	flex-grow: 1;
+	margin: 0 auto;
+	padding: 2em 4em;
+	box-sizing: border-box;
+	width: 75%;
+	/* so it doesnt get much smaller than a tablet (tablet is 768px) */
+	min-width: 750px;
+	background-color: white;
+	box-shadow: 0px 0px 5px 5px rgba(0,0,0,0.75);
+}
+
+.overlay {
+	background-color: rgba(255, 255, 255, 0.75);
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	z-index: 99999;
+}
+
+.overlay .overlay-content {
+	position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    height: 100px;
+    width: 75%;
+    margin: auto;
+    text-align: center;
+}
+
+#slideshow {
+	margin: auto;
+	margin-bottom: 1.5em;
+}
+
+#ticket-box {
+	display: flex;
+	justify-content: center;
+	align-content: flex-start;
+	align-items: center;
+	flex-wrap: wrap;
+	margin: 0;
+	padding: 0;
+}
+
+.ticket-container {
+	width: 200px;
+	height: 200px;
+	margin: 10px;
+}
+
+.ticket {
+	position: relative;
+	perspective: 100px;
+	transform-style: preserve-3d;
+	transition: transform 1s;
+	border: 1px solid black;
+	font-family: 'Josefin Sans', sans-serif;
+	text-align: center;
+	font-weight: bold;
+}
+
+.ticket, .front, .back {
+	width: 100%;
+    height: 100%;
+	position: relative;
+}
+
+.ticket .front, .ticket .back {
+	display: block;
+	position: absolute;
+	backface-visibility: hidden;
+	background-size: cover;
+}
+
+/* Needed to make everything work properly on chrome */
+.ticket .front {
+	pointer-events:none;
+}
+
+.ticket .front .ticket-info {
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+	background-color: rgba(255, 255, 255, 0.8);
+	font-size: 1.25em;
+	padding-top: 5px;
+}
+
+.ticket .back {
+	transform: rotateY(180deg);
+	color: #000000;
+	background-color: #CDD7E0;
+}
+
+.ticket .back .ticket-info {
+	padding: 5px;
+}
+
+.ticket-container:hover .ticket {
+	transform: rotateY(180deg);
+}
+
+.ticket .back .button-container {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	font-size: 0;
+}
+
+.button {
+	font-size: 16px;
+	padding: 3px 6px;
+	text-decoration: none;
+	text-align: center;
+	font-weight: bold;
+	color: black;
+	border: 2px solid #6D0000;
+	cursor: pointer;
+	box-sizing: border-box;
+	display: inline-block;
+}
+
+.ticket .back .button-container .button {
+	width: 50%;
+}
+
+.button.add-to-cart {
+	position: absolute;
+	bottom: 5px;
+	left: 5px;
+	right: 5px;
+}
+
+.button.purchase, .button.add-to-cart {
+	background-color: #FDEB3A;
+	border-color: #F8D217;
+}
+
+.button.purchase {
+	display: block;
+	width: 90px;
+	margin: auto;
+}
+
+.button#logout {
+	transition: background-color 1s, border-color 1s;
+	border-color: #829BC4;
+}
+
+.button.update, .button.close, .button#logout:hover {
+	background-color: #829BC4;
+	border-color: #487BAB;
+}
+
+.button.delete, .button.remove {
+	background-color: #FA474D;
+	border-color: #C9172D;
+}
+
+.button.close {
+	display: inline-block;
+	font-size: 1.25em;
+	margin: 0 auto;
+	padding: 5px;
+	color: black;
+}
+
+.cart-ticket, .history-ticket, .single-ticket {
+	display: flex;
+	max-width: 520px;
+	box-sizing: border-box;
+	padding: 10px;
+	margin: 0 auto;
+}
+
+.cart-ticket {
+	border: 2px solid #487BAB;
+	border-bottom: 1px solid #487BAB;
+	border-top: none;
+	overflow: hidden;
+}
+
+.cart-ticket:first-child {
+	border-top-left-radius: 10px;
+	border-top-right-radius: 10px;
+	border-top: 2px solid #487BAB;
+}
+
+.history-ticket {
+	max-width: none;
+}
+
+.history-ticket:not(:first-child) {
+	border-top: 1px solid #487BAB;
+}
+
+.cart-ticket .band-image, .history-ticket .band-image, .single-ticket .band-image {
+	display: inline-block;
+	height: 200px;
+	width: 200px;
+	background-size: cover;
+}
+
+.cart-ticket .purchase-info, .history-ticket .purchase-info, .single-ticket .purchase-info {
+	position: relative;
+	flex-grow: 1;
+	display: inline-block;
+	vertical-align: top;
+	height: 200px;
+	box-sizing: border-box;
+	padding: 5px;
+	padding-left: 10px;
+}
+
+.purchase-info .name, .purchase-info .location, .purchase-info .date, .purchase-info .time {
+	font-family: 'Josefin Sans', sans-serif;
+}
+
+.purchase-info .name {
+	font-weight: bold;
+	font-size: 1.5em;
+	text-align: center;
+}
+
+.purchase-info .location {
+	text-align: center;
+	margin-bottom: 5px;
+}
+
+.purchase-info .date, .purchase-info .time {
+	text-align: center;
+}
+
+.purchase-info .date, .purchase-info .quantity {
+	padding-top: 5px;
+}
+
+.cart .cart-ticket .purchase-info {
+	padding: 0 5px 0 10px;
+}
+
+.purchase-info .price-info {
+	position: absolute;
+	bottom: 0;
+	right: 0;
+	display: table;
+	border-collapse: collapse;
+}
+
+.price-info div, .price-info .amountDiv {
+	display: table-row;
+}
+
+.price-info .amountDiv .updateDiv {
+	text-align: right;
+}
+
+.updateDiv .button {
+	border: none;
+}
+
+.price-info div span, .price-info .amountDiv div {
+	display: table-cell;
+	padding-bottom: 2px;
+}
+
+.amountDiv {
+	padding-bottom: 2px;
+}
+
+.amountDiv .amount-label {
+	display: none;
+}
+
+.amountDiv input[type="number"] {
+	box-sizing: border-box;
+	width: 100%;
+}
+
+.price-info .update {
+	text-indent: -99999px;
+	width: 21px;
+	height: 21px;
+	padding: 0;
+	
+	background: transparent url(images/save.png);
+	background-repeat: no-repeat;
+	background-size: contain;
+}
+
+.sub-total {
+	border-top: 1px solid #29293d;
+}
+
+.sub-total span, .total span {
+	padding-top: 2px;
+}
+
+.total {
+	box-sizing: border-box;
+	margin: auto;
+	padding: 5px 10px;
+	max-width: 520px;
+	text-align: right;
+	
+	background-color: #829BC4;
+	border-bottom-left-radius: 10px;
+	border-bottom-right-radius: 10px;
+	border: 2px solid #487BAB;
+	border-top: 1px solid #487BAB;
+	margin-bottom: 5px;
+}
+
+.data {
+	font-weight: bold;
+	text-align: right;
+	padding-left: 10px;
+}
+
+.cart .remove {
+	position: absolute;
+	bottom: 0px;
+	left: 0px;
+	margin: 0px 10px;
+}
+
+.order {
+	width: 100%;
+	border-radius: 10px;
+	border: 2px solid #487BAB;
+	/* Hides overflow from border-radius */
+	overflow: hidden;
+	margin-bottom: 1em;
+	margin-left: auto;
+	margin-right: auto;
+	max-width: 520px;
+}
+
+.order-details, .order-total {
+	padding: 10px;
+	background-color: #829BC4;
+}
+
+.order-details {
+	border-bottom: 1px solid #487BAB;
+}
+
+.order-total {
+	border-top: 1px solid #487BAB;
+	text-align: right;
+}
+
+.order-total span, .total span {
+	font-weight: bold;
+}
+
+.single-ticket {
+	border: 2px solid #487BAB;
+	border-radius: 10px;
+	min-width: 520px;
+	padding: 10px;
+}
+
+.single-ticket .button {
+	bottom: 0;
+}
+
+.single-ticket .button-container {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	margin-left: 10px;
+	display: flex;
+}
+
+.single-ticket .button-container .button:first-child {
+	margin-right: 10px;
+}
+
+.single-ticket .button-container .button {
+	flex-grow: 1;
+}
+
+form:not(#search-form):not(.amountDiv), .modify-success, .modify-error {
+	max-width: 400px;
+	margin: 0 auto;
+}
+
+.modify-success, .modify-error {
+	text-align: center;
+}
+
+.modify-error {
+	color: red;
+	font-weight: bold;
+}
+
+.form-feilds {
+	display: table;
+	width: 100%;
+	margin-bottom: 5px;
+}
+
+.form-feilds div {
+	display: table-row;
+}
+
+.form-feilds div label {
+	padding-right: 0.5em;
+}
+
+.form-feilds div input {
+	box-sizing: border-box;
+	width: calc(100% - 8px);
+}
+
+.form-feilds div label, .form-feilds div input {
+	display: table-cell;
+	margin: 4px;
+	vertical-align: middle;
+}
+
+/* any form errors */
+.form-feilds div label.error {
+	display: table-row;
+	color: red;
+}
+
+/* overrides display row, used in register because passwords are in the same parent div */
+.form-feilds #emailDiv + #passwordDiv {
+	display: table-row-group;
+}
+
+.form-feilds + input[type="submit"]{
+	width: 50%;
+	display: block;
+	margin: 0 auto;
+}
+
+footer {
+	background-color: black;
+	color: white;
+	padding: 1em;
+}
+
+#footer-container {
+	box-sizing: border-box;
+	padding: 0 4em;
+	width: 75%;
+	margin: 0 auto;
+}
+
+/* Tablets */
+@media screen and (max-width: 768px) {
+	main {
+		width: 100%;
+		min-width: 0;
+		margin: 0;
+		padding: 2em 20px;
+	}
+	
+	#footer-container {
+		padding: 0 20px;
+		width: 100%;
+	}
+	
+	.single-ticket {
+		width: 100%;
+		min-width: 0;
+		margin: 0;
+	}
+}
+
+/* Phones */
+@media screen and (max-width: 500px) {
+	
+	nav {
+		/* Overrides the stickyjs */
+		position: static !important;
+	}
+	
+	nav ul {
+		display: block;
+	}
+	
+	nav ul li {
+		padding: 0;
+		display: block;
+		border-left: none !important;
+		border-right: none !important;
+		border-bottom: 1px solid white;
+	}
+	
+	.cart-ticket, .history-ticket, .single-ticket {
+		position: relative;
+	}
+	
+	.cart-ticket .band-image, .history-ticket .band-image, .single-ticket .band-image {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		background-size: cover;
+	}
+	
+	.cart-ticket .band-image:after, .history-ticket .band-image:after, .single-ticket .band-image:after {
+		content: '';
+		display: block;
+		width: 100%;
+		height: 100%;
+		position: absolute;
+		top: 0;
+		left: 0;
+		background-color: rgba(255, 255, 255, 0.75);
+	}
+}

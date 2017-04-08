@@ -1,0 +1,4 @@
+[11-Dec-2016 16:55:45 UTC] PHP Notice:  Undefined index: UserID in /home/mak001/public_html/TicketDominator/required/connect.php on line 4
+[11-Dec-2016 16:55:45 UTC] PHP Notice:  Undefined index: UserName in /home/mak001/public_html/TicketDominator/required/connect.php on line 5
+[11-Dec-2016 16:55:45 UTC] PHP Notice:  Undefined index: Admin in /home/mak001/public_html/TicketDominator/required/connect.php on line 6
+[11-Dec-2016 16:55:45 UTC] PHP Notice:  Undefined index: logout in /home/mak001/public_html/TicketDominator/required/methods.php on line 43
